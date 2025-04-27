@@ -1,13 +1,13 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
-
+import java.util.Scanner;
 
 public class MoteurDeMatching {
     private  ComparateurDeDeuxStrings ComparateurString;
     private  ComparateurDeDeuxNoms ComparateurNom;
     private  List<Pretraiteur> Preprocesseurs;
-    private final GenerateurDeCondidats Generateur;
+    private  GenerateurDeCondidats Generateur;
 
     public MoteurDeMatching(ComparateurDeDeuxStrings stringComparator,ComparateurDeDeuxNoms nameComparator,List<Pretraiteur> newPreprocessor, GenerateurDeCondidats candidateGenerateur) {
         this.ComparateurString = stringComparator;
@@ -19,6 +19,9 @@ public class MoteurDeMatching {
     public ComparateurDeDeuxNoms getComparateurNom() {
         return ComparateurNom;
     }
+    public ComparateurDeDeuxStrings getComparateurString() {
+        return ComparateurString;
+    }
 
     public GenerateurDeCondidats getGenerateur() {
         return Generateur;
@@ -28,16 +31,8 @@ public class MoteurDeMatching {
         return Preprocesseurs;
     }
 
-    public void setComparateurNom(ComparateurDeDeuxNoms comparateurNom) {
-        ComparateurNom = comparateurNom;
-    }
-
     public void setPreprocesseurs(List<Pretraiteur> preprocesseurs) {
         Preprocesseurs = preprocesseurs;
-    }
-
-    public void setComparateurString(ComparateurDeDeuxStrings comparateurString) {
-        ComparateurString = comparateurString;
     }
 
     public boolean rechercher(String s , List<String> strings) {
@@ -47,7 +42,6 @@ public class MoteurDeMatching {
                 }
           }
          return false;*/
-
         return strings.contains(s);
     }
     public List<String> dedupliquer (List<String> L1, List<String> L2) {
@@ -58,30 +52,59 @@ public class MoteurDeMatching {
         return L3;
     }
 
-    public double comparerDeuxListes(List<String> L1, List<String> L2) {
-        ComparateurDeDeuxNoms comparateur = getComparateurNom();
+    public List<MyTuple> comparerDeuxListes(List<String> L1, List<String> L2) {
+        Scanner scanner = new Scanner(System.in);
+        List<MyTuple> result = new ArrayList<>();
         List<String> L3 = dedupliquer(L1, L2);
         List<Pretraiteur> Processing = getPreprocesseurs();
-        int size = L3.size();
-        for( String s : L3) {
+        for (int i = 0; i < L3.size(); i++) {
+            String s = L3.get(i);
             for (Pretraiteur p : Processing) {
-                String S0 =p.pretraiter(s);
-                s=S0;
+                s = p.pretraiter(s);
             }
-        }
-        for( int i = 0; i < size; i++ ) {
-            for(int j = i+1; j < size-1; j++ ) {
-                double comp =comparateur.comparer1(L3.get(i),L2.get(j));
-
-
-            }
+            L3.set(i, s);
         }
 
+        int choice;
+        do {
+            System.out.println("1. Comparer des Noms");
+            System.out.println("2. Comparer des Strings");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
+                    for (int i = 0; i < L3.size() - 1; i++) {
+                        for (int j = i + 1; j < L3.size(); j++) {
+                            double comp = comparateurNom.comparer1(L3.get(i), L3.get(j));
+                            result.add(new MyTuple(L3.get(i), L3.get(j), comp));
+                        }
+                    }
+                    scanner.close();
+                    return result;
 
-    return 0;
+                case 2:
+                    ComparateurDeDeuxStrings comparateurString = getComparateurString();
+                    for (int i = 0; i < L3.size() - 1; i++) {
+                        for (int j = i + 1; j < L3.size(); j++) {
+                            double comp = comparateurString.comparer2(L3.get(i), L3.get(j));
+                            result.add(new MyTuple(L3.get(i), L3.get(j), comp));
+                        }
+                    }
+                    scanner.close();
+                    return result;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (true);
     }
-
-
-
-
 }
+
+
+
+
+
+
+
