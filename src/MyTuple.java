@@ -1,13 +1,18 @@
 public class MyTuple {
         String item1;
-        String item2;
         double value;
 
-        public MyTuple(String item1, String item2, double value) {
+        public MyTuple(String item1, double value) {
             this.item1 = item1;
-            this.item2 = item2;
             this.value = value;
 
         }
+        public String getItem1() {
+            return item1;
+        }
+
+    public double getValue() {
+        return value;
     }
+}
 
