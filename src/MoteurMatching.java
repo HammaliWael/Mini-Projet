@@ -9,12 +9,12 @@ public class MoteurMatching {
         private Selectionneur selectionneur;
 
 
-        public MoteurMatching(ComparateurDeDeuxStrings stringComparator,ComparateurDeDeuxNoms nameComparator,List<Pretraiteur> newPreprocessor, GenerateurDeCondidats candidateGenerateur, Selectionneur selectionneur    ) {
+        public MoteurMatching(ComparateurDeDeuxStrings stringComparateur,ComparateurDeDeuxNoms nameComparateur,List<Pretraiteur> newPreprocesseur, GenerateurDeCondidats candidateGenerateur, Selectionneur selectionneur    ) {
 
 
-            this.ComparateurString = stringComparator;
-            this.ComparateurNom = nameComparator;
-            this.Preprocesseurs = newPreprocessor;
+            this.ComparateurString = stringComparateur;
+            this.ComparateurNom = nameComparateur;
+            this.Preprocesseurs = newPreprocesseur;
             this.Generateur = candidateGenerateur;
             this.selectionneur=selectionneur;
 
@@ -63,37 +63,6 @@ public class MoteurMatching {
             Selectionneur Selec = getSelectionneur();
             result=Selec.selectionner(result);
 
-
             return result ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /*List<MyTuple> result = new ArrayList<>();
-
-            S.add(s);
-
-
-                L = p.pretraiter(L);
-                S = p.pretraiter(S);
-            }
-            ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
-
-            for (int i = 0; i < L.size() ; i++) {
-                double comp = comparateurNom.comparer1(L.get(i),S.get(0));
-                result.add(new MyTuple(L.get(i),comp));
-            }
-            Selectionneur Selec=getSelectionneur();
-            result=Selec.selectionner(result);
-            return result;*/
         }
     }
