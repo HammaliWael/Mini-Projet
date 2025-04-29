@@ -1,5 +1,5 @@
 import java.util.List;
 import java.util.ArrayList;
 public interface Pretraiteur {
-    public List <String> pretraiter(List<String> s);
+    List<Noms> pretraiter(List <Noms> nom);
 }

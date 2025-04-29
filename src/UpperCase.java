@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UpperCase implements Pretraiteur {
-    public List <String> pretraiter(List<String> s){
-        List<String> result = new ArrayList<>();
-        for(String str : s) {
-            str.toUpperCase();
-            result.add(str);
+
+    public List<Noms> pretraiter(List<Noms> nom) {
+        List<Noms> result = new ArrayList<>();
+        for(Noms n : nom) {
+            result.add(new Noms(n.getNom().toUpperCase(), n.getId()));
         }
         return result;
     }

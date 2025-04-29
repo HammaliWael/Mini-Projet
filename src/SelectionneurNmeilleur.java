@@ -1,9 +1,18 @@
 import java.util.List;
 import java.util.Comparator;
 import java.util.ArrayList;
+
 public class SelectionneurNmeilleur implements Selectionneur {
     int n;
     public SelectionneurNmeilleur(int n){
+        this.n = n;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
         this.n = n;
     }
 

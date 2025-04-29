@@ -2,28 +2,31 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Vocalizer implements Pretraiteur {
-    public List <String> pretraiter(List <String>L){
-        for(String s : L) {
-            if (s.contains("oui")) {
-                s = s.replace("oui", "wi");
+    public List<Noms> pretraiter(List<Noms> nom){
+        List<Noms> result = new ArrayList<>();
+        for(Noms n : nom) {
+            if (n.getNom().contains("oui")) {
+                result.add(new Noms(n.getNom().replace("oui", "wi"), n.getId()));
             }
-            if (s.contains("ss")) {
-                s = s.replace("ss", "z");
+
+            if (n.getNom().contains("ss")) {
+                result.add(new Noms(n.getNom().replace("ss", "z"), n.getId()));
             }
-            if (s.contains("ph")) {
-                s = s.replace("ph", "f");
+            if (n.getNom().contains("ph")) {
+                result.add(new Noms(n.getNom().replace("ph", "f"), n.getId()));
             }
-            if (s.contains("ck")) {
-                s = s.replace("ck", "k");
+            if (n.getNom().contains("ck")) {
+                result.add(new Noms(n.getNom().replace("ck", "k"), n.getId()));
             }
-            if (s.contains("gh")) {
-                s = s.replace("gh", "g");
+            if (n.getNom().contains("gh")) {
+                result.add(new Noms(n.getNom().replace("gh", "g"), n.getId()));
             }
-            if (s.contains("ks")) {
-                s = s.replace("ks", "x");
+            if (n.getNom().contains("ks")) {
+                result.add(new Noms(n.getNom().replace("ks", "x"), n.getId()));
+
             }
         }
-        return L;
+        return result;
 
     }
 
