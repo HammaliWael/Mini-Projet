@@ -8,6 +8,4 @@ public class DeleteCaracteresSpeciaux implements Pretraiteur {
         }
         return result;
     }
-
-
 }

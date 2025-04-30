@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoteurMatching {
+
+
         private  ComparateurDeDeuxStrings ComparateurString;
         private  ComparateurDeDeuxNoms ComparateurNom;
         private List<Pretraiteur> Preprocesseurs;
@@ -44,6 +46,9 @@ public class MoteurMatching {
             Preprocesseurs = preprocesseurs;
         }
 
+
+
+
         public List<MyTuple> rechercher(Noms s , List<Noms> L) {
 
             List<Pretraiteur> Processing = getPreprocesseurs();
@@ -57,7 +62,7 @@ public class MoteurMatching {
 
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
             for (int i = 0; i < L.size() ; i++) {
-                double comp= comparateurNom.comparer1(s.getNom(),L.get(i).getNom() );
+                double comp= comparateurNom.comparer1(S.getFirst().getNom(),L.get(i).getNom() );
                 result.add(new MyTuple(L.get(i),comp));
             }
             Selectionneur Selec = getSelectionneur();
