@@ -5,6 +5,7 @@ public class Vocalizer implements Pretraiteur {
     public List<Noms> pretraiter(List<Noms> nom){
         List<Noms> result = new ArrayList<>();
         for(Noms n : nom) {
+
             if (n.getNom().contains("oui")) {
                 result.add(new Noms(n.getNom().replace("oui", "wi"), n.getId()));
             }
