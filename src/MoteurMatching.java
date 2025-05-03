@@ -47,21 +47,34 @@ public class MoteurMatching {
             Preprocesseurs = preprocesseurs;
         }
 
+    public void setComparateurNom(ComparateurDeDeuxNoms comparateurNom) {
+        ComparateurNom = comparateurNom;
+    }
 
+    public void setComparateurString(ComparateurDeDeuxStrings comparateurString) {
+        ComparateurString = comparateurString;
+    }
+    public void setGenerateur(GenerateurDeCondidats generateur) {
+            Generateur = generateur;
+    }
 
+    public void setSelectionneur(Selectionneur selectionneur) {
+        this.selectionneur = selectionneur;
+    }
 
-        public List<MyTuple> rechercher(Noms s , List<Noms> L) {
+    public List<MyTuple> rechercher(Noms s , List<Noms> L) {
 
-            List<Pretraiteur> Processing = getPreprocesseurs();
+            List<Pretraiteur> pretraiteurs = getPreprocesseurs();
             List<MyTuple> result = new ArrayList<>();
             List<Noms> S = new ArrayList<>();
             S.add(s);
-            for (Pretraiteur p : Processing){
+            for (Pretraiteur p :pretraiteurs){
                 L=p.pretraiter(L);
                 S=p.pretraiter(S);
             }
 
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
+
             for (int i = 0; i < L.size() ; i++) {
                 double comp= comparateurNom.comparer1(S.getFirst().getNom(),L.get(i).getNom() );
                 result.add(new MyTuple(L.get(i),comp));

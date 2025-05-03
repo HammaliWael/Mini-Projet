@@ -8,13 +8,21 @@ public class SelectionneurParSeuille {
     public SelectionneurParSeuille(int seuil){
         this.seuil = seuil;
     }
+
+    public int getSeuil(){ return seuil; }
+
+    public void setSeuil(int seuil) {
+        this.seuil = seuil;
+    }
+
     public List<MyTuple> selectionner(List<MyTuple> L){
+        List<MyTuple> result = new ArrayList<>();
         for(MyTuple t : L){
-            if(t.getValue() < seuil) {
-                L.remove(t);
+            if(t.getValue() >= seuil) {
+                result.add(t);
             }
         }
-        return L;
+        return result;
     }
 
 }
