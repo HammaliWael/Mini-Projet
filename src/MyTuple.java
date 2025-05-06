@@ -13,5 +13,8 @@ public class MyTuple {
         public double getValue() {
             return value;
     }
+    public String toString() {
+        return "(" + item1.getNom() + ", ID: " + item1.getId() + ", Score: " + value + ")";
+    }
 }
 

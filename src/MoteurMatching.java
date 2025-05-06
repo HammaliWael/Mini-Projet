@@ -73,6 +73,7 @@ public class MoteurMatching {
                 S=p.pretraiter(S);
             }
 
+
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
 
             for (int i = 0; i < L.size() ; i++) {
@@ -84,4 +85,18 @@ public class MoteurMatching {
 
             return result ;
         }
+        public List<Noms> Dedupliquer (List<Noms> L1,List<Noms> L2) {
+            List<Noms> result= new ArrayList<>();
+            for( Noms n:L1){
+                List <MyTuple>  rech = rechercher(n,L2);
+                for (MyTuple t : rech) {
+                    if(t.getValue()!=0.0){
+                        result.add(t.getItem1());
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
     }
