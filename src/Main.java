@@ -25,9 +25,8 @@ public class Main {
         base.add(new Noms("dHiA", 11));
 
 
-
         List<MyTuple> resultats = moteur.rechercher(cible, base);
-        System.out.println("Résultats du matching pour: " + cible.getNom());
+        System.out.println("Résultats du matching pour: " + cible.getNom()+" D'identifiant "+ cible.getId());
         for (MyTuple t : resultats) {
             System.out.println(t);
         }
