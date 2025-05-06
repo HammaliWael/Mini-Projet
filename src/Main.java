@@ -9,7 +9,7 @@ public class Main {
         GenerateurDeCondidats generateur = new FiltreParLongeur(1);
         Selectionneur selectionneur = new SelectionneurNmeilleur(7);
         MoteurMatching moteur = new MoteurMatching(null, comparateur, pretraiteurs, generateur, selectionneur);
-        Noms cible = new Noms("dhia", 0);
+        Noms test = new Noms("dhia", 0);
 
         List<Noms> base = new ArrayList<>();
         base.add(new Noms("Wael", 1));
@@ -25,8 +25,8 @@ public class Main {
         base.add(new Noms("dHiA", 11));
 
 
-        List<MyTuple> resultats = moteur.rechercher(cible, base);
-        System.out.println("Résultats du matching pour: " + cible.getNom()+" D'identifiant "+ cible.getId());
+        List<MyTuple> resultats = moteur.rechercher(test, base);
+        System.out.println("Résultats du matching pour: " + test.getNom()+" D'identifiant "+ test.getId());
         for (MyTuple t : resultats) {
             System.out.println(t);
         }
