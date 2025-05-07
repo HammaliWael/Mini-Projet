@@ -19,5 +19,8 @@ public class Noms {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    public String toString() {
+        return nom + " (ID: " + id + ")";
+    }
 }
 

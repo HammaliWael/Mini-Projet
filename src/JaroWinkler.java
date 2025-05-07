@@ -6,7 +6,7 @@ import java.util.Comparator;
      @Override
      public double comparer1(String s1, String s2) {
          JaroWinklerDistance jaroWinkler = new JaroWinklerDistance();
-         return jaroWinkler.apply(s1, s2);
+         return 1-jaroWinkler.apply(s1, s2);
      }
  }
 
