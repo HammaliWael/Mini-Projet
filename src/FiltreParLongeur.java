@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class FiltreParLongeur implements GenerateurDeCondidats {
+public class FiltreParLongeur implements Filtre {
     private int incertitude;
 
     public int getIncertitude(){ return incertitude; }
@@ -16,10 +16,10 @@ public class FiltreParLongeur implements GenerateurDeCondidats {
     }
 
 
-    public List<Noms> generer(List<Noms> noms, Noms candidat  ) {
-        List<Noms> result = new ArrayList<>();
+    public List<Nom> generer(List<Nom> noms, Nom candidat  ) {
+        List<Nom> result = new ArrayList<>();
         int length = candidat.getNom().length();
-        for(Noms n : noms) {
+        for(Nom n : noms) {
             if (length-incertitude <= n.getNom().length() && n.getNom().length() <= length + incertitude) {
                 result.add(n);
             }

@@ -2,10 +2,10 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 
 public class Levenshtein implements ComparateurDeDeuxStrings {
 
-    public double comparer2(String s1, String s2) {
+    public double comparer2(Nom nom1, Nom nom2) {
         LevenshteinDistance levenshtein = new LevenshteinDistance();
-        int distance = levenshtein.apply(s1, s2);
-        int max = Math.max(s1.length(), s2.length());
+        int distance = levenshtein.apply(nom1.getNom(), nom2.getNom());
+        int max = Math.max(nom1.getNom().length(), nom2.getNom().length());
         if (max == 0) return 1.0;
         return 1.0 - ((double) distance / max);
 

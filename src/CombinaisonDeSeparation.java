@@ -5,9 +5,9 @@ import java.util.Set;
 
 public class CombinaisonDeSeparation implements Pretraiteur {
 
-    public List<Noms> pretraiter(List<Noms> noms) {
-        List<Noms> L2 = new ArrayList<>();
-        for (Noms n : noms) {
+    public List<Nom> pretraiter(List<Nom> noms) {
+        List<Nom> L2 = new ArrayList<>();
+        for (Nom n : noms) {
             Set<String> result = new HashSet<>();
             String[] parts = n.getNom().trim().split("\\s+");
             for (int r = 1; r <= parts.length; r++) {
@@ -15,7 +15,7 @@ public class CombinaisonDeSeparation implements Pretraiteur {
             }
 
             for (String combination : result) {
-                L2.add(new Noms(combination, n.getId()));
+                L2.add(new Nom(combination, n.getId()));
             }
         }
 

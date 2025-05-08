@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecuperateurDeCsv implements Recuperateur{
-    public  List<Noms> recuperer (String cheminFichier ) {
-        List<Noms> listeNoms = new ArrayList<>();
+    public  List<Nom> recuperer (String cheminFichier ) {
+        List<Nom> listeNoms = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
@@ -15,7 +15,7 @@ public class RecuperateurDeCsv implements Recuperateur{
                 if (parties.length == 2) {
                     String n = parties[0].trim();
                     int id = Integer.parseInt(parties[1].trim());
-                    listeNoms.add(new Noms(n, id));
+                    listeNoms.add(new Nom(n, id));
                 }
             }
         } catch (IOException e) {

@@ -7,12 +7,12 @@ public class MoteurMatching {
         private  ComparateurDeDeuxStrings ComparateurString;
         private  ComparateurDeDeuxNoms ComparateurNom;
         private List<Pretraiteur> Preprocesseurs;
-        private  GenerateurDeCondidats Generateur;
+        private  GenerateurDeCondidat Generateur;
         private Selectionneur selectionneur;
 
 
 
-        public MoteurMatching(ComparateurDeDeuxStrings stringComparateur,ComparateurDeDeuxNoms nameComparateur,List<Pretraiteur> newPreprocesseur, GenerateurDeCondidats candidateGenerateur, Selectionneur selectionneur    ) {
+        public MoteurMatching(ComparateurDeDeuxStrings stringComparateur,ComparateurDeDeuxNoms nameComparateur,List<Pretraiteur> newPreprocesseur, GenerateurDeCondidat candidateGenerateur, Selectionneur selectionneur    ) {
 
 
             this.ComparateurString = stringComparateur;
@@ -31,7 +31,7 @@ public class MoteurMatching {
             return ComparateurString;
         }
 
-        public GenerateurDeCondidats getGenerateur() {
+        public GenerateurDeCondidat getGenerateur() {
             return Generateur;
         }
 
@@ -54,7 +54,7 @@ public class MoteurMatching {
     public void setComparateurString(ComparateurDeDeuxStrings comparateurString) {
         ComparateurString = comparateurString;
     }
-    public void setGenerateur(GenerateurDeCondidats generateur) {
+    public void setGenerateur(GenerateurDeCondidat generateur) {
             Generateur = generateur;
     }
 
@@ -62,11 +62,11 @@ public class MoteurMatching {
         this.selectionneur = selectionneur;
     }
 
-    public List<MyTuple> rechercher(Noms s , List<Noms> L) {
+    public List<MyTuple> rechercher(Nom s , List<Nom> L) {
 
             List<Pretraiteur> pretraiteurs = getPreprocesseurs();
             List<MyTuple> result = new ArrayList<>();
-            List<Noms> S = new ArrayList<>();
+            List<Nom> S = new ArrayList<>();
             S.add(s);
             for (Pretraiteur p :pretraiteurs){
                 L=p.pretraiter(L);
@@ -77,17 +77,17 @@ public class MoteurMatching {
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
 
             for (int i = 0; i < L.size() ; i++) {
-                double comp= comparateurNom.comparer1(S.getFirst().getNom(),L.get(i).getNom() );
-                result.add(new MyTuple(L.get(i),comp));
+                double comp= comparateurNom.comparer1(S.getFirst(),L.get(i) );
+                result.add(new MyTuple(S.getFirst(),L.get(i),comp));
             }
             Selectionneur Selec = getSelectionneur();
             result=Selec.selectionner(result);
 
             return result ;
         }
-        public List<Noms> Dedupliquer (List<Noms> L1,List<Noms> L2) {
-            List<Noms> result= new ArrayList<>();
-            for( Noms n:L1){
+        public List<Nom> Dedupliquer (List<Nom> L1, List<Nom> L2) {
+            List<Nom> result= new ArrayList<>();
+            for( Nom n:L1){
                 List <MyTuple>  rech = rechercher(n,L2);
                 for (MyTuple t : rech) {
                     if(t.getValue()!=0.0){

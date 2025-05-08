@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class FiltreParPartage implements GenerateurDeCondidats {
+public class FiltreParPartage implements Filtre {
     private int N;
 
     public FiltreParPartage(int N) {
@@ -18,10 +18,10 @@ public class FiltreParPartage implements GenerateurDeCondidats {
         this.N = n;
     }
 
-    public List<Noms> generer(List<Noms> noms, Noms candidat) {
-        List<Noms> result = new ArrayList<>();
+    public List<Nom> generer(List<Nom> noms, Nom candidat) {
+        List<Nom> result = new ArrayList<>();
         Set<String> S = new HashSet<>(Diviseur(candidat.getNom(), getN()));
-        for(Noms n : noms) {
+        for(Nom n : noms) {
             Set<String> S2 = new HashSet<>(S);
             S2.retainAll(Diviseur(n.getNom(), getN()));
             if (!S2.isEmpty()) {
