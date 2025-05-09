@@ -6,17 +6,18 @@ public class Main {
 
         List<Pretraiteur> pretraiteurs = new ArrayList<>();
 
-        pretraiteurs.add(new CombinaisonDeSeparation());
-        pretraiteurs.add(new DeleteChiffres());
-        pretraiteurs.add(new UpperCase());
+        //pretraiteurs.add(new CombinaisonDeSeparation());
+         pretraiteurs.add(new DeleteChiffres());
+         pretraiteurs.add(new DeleteCaracteresSpeciaux());
+        //pretraiteurs.add(new UpperCase());
 
         ComparateurDeDeuxNoms comparateur = new ExactMatch();
         GenerateurDeCondidat generateur = new Generateur1(2);
         Selectionneur selectionneur = new SelectionneurNmeilleur(100);
-        Filtre F =new FiltreParLongeur(5);
+        Filtre F =new FiltreParLongeur(10);
 
         MoteurMatching moteur = new MoteurMatching(null, comparateur, pretraiteurs, generateur, selectionneur,F);
-        Nom test = new Nom("EDINALVA POSSIDONIO DE SOUSA", "3");
+        Nom test = new Nom("Uth2man Hus1000000000000sain Faid al-MUJA@@@@@@LI", "3");
         List<Nom> base = new ArrayList<>();
         String filePath = "C:\\Users\\wael\\Downloads\\peps_names_658k.csv";
 

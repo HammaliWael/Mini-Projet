@@ -7,8 +7,11 @@ public class DeleteChiffres implements Pretraiteur {
         for(Nom n : Noms) {
             List<Nom> L = n.getListNomTraitée();
             for(int i=0;i<L.size();i++) {
-                L.get(i).getNom().replaceAll("\\d ", "");
+                String cleaned = L.get(i).getNom().replaceAll("\\d", "");
+                L.get(i).setNom(cleaned);
             }
+            n.setListNomTraitée(L);
+
         }
         return Noms;
     }

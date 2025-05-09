@@ -6,8 +6,10 @@ public class DeleteCaracteresSpeciaux implements Pretraiteur {
         for(Nom n : Noms) {
             List<Nom> L = n.getListNomTraitée();
             for(int i=0;i<L.size();i++) {
-                L.get(i).getNom().replaceAll("[^a-zA-Z0-9\\s]", "");
+                String cleaned = L.get(i).getNom().replaceAll("[^a-zA-Z_\\\\s-]", "");
+                L.get(i).setNom(cleaned);
             }
+            n.setListNomTraitée(L);
 
         }
         return Noms;

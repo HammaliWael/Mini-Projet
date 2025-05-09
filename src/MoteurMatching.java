@@ -79,13 +79,12 @@ public class MoteurMatching {
             List<MyTuple> result = new ArrayList<>();
             List<Nom> S = new ArrayList<>();
             S.add(s);
-            List<Nom> M= F.Filtrer(L,S.getFirst());
+            //List<Nom> M= F.Filtrer(L,S.getFirst());
             for (Pretraiteur p :pretraiteurs){
-                M=p.pretraiter(M);
+                L=p.pretraiter(L);
                 S=p.pretraiter(S);
             }
-            result= generateur.generer(S,M);
-
+            result= generateur.generer(S,L);
             for (int i = 0; i < result.size() ; i++) {
                 double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
                 result.get(i).setValue(comp);
