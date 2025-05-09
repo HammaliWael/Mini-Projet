@@ -16,7 +16,7 @@ public class FiltreParLongeur implements Filtre {
     }
 
 
-    public List<Nom> generer(List<Nom> noms, Nom candidat  ) {
+    public List<Nom> Filtrer(List<Nom> noms, Nom candidat  ) {
         List<Nom> result = new ArrayList<>();
         int length = candidat.getNom().length();
         for(Nom n : noms) {

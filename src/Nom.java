@@ -4,16 +4,16 @@ import java.util.List;
 public class Nom {
     private String nom;
     private List<Nom> listNomTraitée;
-    private final int id;
+    private final String id;
 
-    public Nom(String nom, int id) {
+    public Nom(String nom, String id) {
         this.nom = nom;
         this.id = id;
         this.listNomTraitée = new ArrayList<>();
         this.listNomTraitée.add(this);
 
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 

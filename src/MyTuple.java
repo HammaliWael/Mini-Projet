@@ -23,6 +23,10 @@ public class MyTuple {
             this.item2 = item2;
         }
 
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     public String toString() {
         return "(" + item1.getNom() + ", ID: " + item1.getId() + ", Score: " + value + ")";
     }

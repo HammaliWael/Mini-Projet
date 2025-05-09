@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,48 +19,34 @@ public class Generateur1 implements GenerateurDeCondidat {
         this.x = x;
     }
 
+    public List<MyTuple> generer(List<Nom> L1, List<Nom> L2) {
 
-    public List<List<Nom>> generer(List<Nom> L1, List<Nom> L2){
-        Map<Integer,List <Nom> >map = new HashMap<>();
-        for(Nom n : L2) {
-           if(map.containsKey(n.getNom().length())) {
-               map.get(n.getNom().length()).add(n);
-           }else {
-               List<Nom> L = new ArrayList<>();
-               L.add(n);
-               map.put(n.getNom().length(),L);
-           }
-
+        Map<Integer, List<Nom>> map = new HashMap<>();
+        for (Nom n : L2) {
+            int len = n.getNom().length();
+            map.computeIfAbsent(len, k -> new ArrayList<>()).add(n);
         }
-        for(Nom n : L1) {
-            int l=n.getNom().length();
-            if(map.containsKey(l) ) {
-                map.get(l).add(n);
-                map.put(l,map.get(l));
+        List<MyTuple> result = new ArrayList<>();
+        for (Nom n1 : L1) {
+            int len = n1.getNom().length();
+            if (map.containsKey(len)) {
+                for (Nom n2 : map.get(len)) {
+                    result.add(new MyTuple(n1,n2,0.0));
+                }
             }
-            else if(map.containsKey(l+x) ) {
-                map.get(l+x).add(n);
-                map.put(l+x,map.get(l+x));
+            if (map.containsKey(len+x)) {
+                for (Nom n2 : map.get(len+x)) {
+                    result.add(new MyTuple(n1,n2,0.0));
+                }
+             }
+            if (map.containsKey(len-x)) {
+                for (Nom n2 : map.get(len-x)) {
+                    result.add(new MyTuple(n1,n2,0.0));
+                }
             }
-            else if(map.containsKey(l-2) ) {
-                map.get(l-x).add(n);
-                map.put(l-x,map.get(l-x));
-            }
-            else {
-                List<Nom> L = new ArrayList<>();
-                L.add(n);
-                map.put(n.getNom().length(),L);
-            }
-
         }
-        return new ArrayList<>(map.values());
 
-
+        return result;
     }
-
-
-
-
-
-
 }
+

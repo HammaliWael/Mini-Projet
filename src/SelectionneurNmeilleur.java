@@ -19,7 +19,10 @@ public class SelectionneurNmeilleur implements Selectionneur {
     @Override
     public List<MyTuple> selectionner(List<MyTuple> L) {
         L.sort(Comparator.comparingDouble(MyTuple::getValue).reversed());
-        L=L.subList(0,n);
-        return L ;
+        if(L.size()<n) return L;
+        else {
+            L=L.subList(0,n);
+            return L;
         }
     }
+}

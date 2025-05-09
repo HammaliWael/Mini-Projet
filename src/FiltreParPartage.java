@@ -18,7 +18,7 @@ public class FiltreParPartage implements Filtre {
         this.N = n;
     }
 
-    public List<Nom> generer(List<Nom> noms, Nom candidat) {
+    public List<Nom> Filtrer(List<Nom> noms, Nom candidat) {
         List<Nom> result = new ArrayList<>();
         Set<String> S = new HashSet<>(Diviseur(candidat.getNom(), getN()));
         for(Nom n : noms) {

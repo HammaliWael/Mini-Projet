@@ -9,10 +9,11 @@ public class MoteurMatching {
         private List<Pretraiteur> Preprocesseurs;
         private  GenerateurDeCondidat Generateur;
         private Selectionneur selectionneur;
+        private Filtre filtre;
 
 
 
-        public MoteurMatching(ComparateurDeDeuxStrings stringComparateur,ComparateurDeDeuxNoms nameComparateur,List<Pretraiteur> newPreprocesseur, GenerateurDeCondidat candidateGenerateur, Selectionneur selectionneur    ) {
+        public MoteurMatching(ComparateurDeDeuxStrings stringComparateur,ComparateurDeDeuxNoms nameComparateur,List<Pretraiteur> newPreprocesseur, GenerateurDeCondidat candidateGenerateur, Selectionneur selectionneur ,Filtre filtre   ) {
 
 
             this.ComparateurString = stringComparateur;
@@ -20,6 +21,7 @@ public class MoteurMatching {
             this.Preprocesseurs = newPreprocesseur;
             this.Generateur = candidateGenerateur;
             this.selectionneur=selectionneur;
+            this.filtre=filtre;
 
         }
 
@@ -42,8 +44,15 @@ public class MoteurMatching {
         public List<Pretraiteur> getPreprocesseurs() {
             return Preprocesseurs;
         }
+        public Filtre getFiltre() {
+            return filtre;
+        }
 
-        public void setPreprocesseurs(List<Pretraiteur> preprocesseurs) {
+    public void setFiltre(Filtre filtre) {
+        this.filtre = filtre;
+    }
+
+    public void setPreprocesseurs(List<Pretraiteur> preprocesseurs) {
             Preprocesseurs = preprocesseurs;
         }
 
@@ -63,40 +72,38 @@ public class MoteurMatching {
     }
 
     public List<MyTuple> rechercher(Nom s , List<Nom> L) {
-
+            Filtre F= getFiltre();
             List<Pretraiteur> pretraiteurs = getPreprocesseurs();
+            GenerateurDeCondidat generateur = getGenerateur();
+            ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
             List<MyTuple> result = new ArrayList<>();
             List<Nom> S = new ArrayList<>();
             S.add(s);
+            List<Nom> M= F.Filtrer(L,S.getFirst());
             for (Pretraiteur p :pretraiteurs){
-                L=p.pretraiter(L);
+                M=p.pretraiter(M);
                 S=p.pretraiter(S);
             }
+            result= generateur.generer(S,M);
 
-
-            ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
-
-            for (int i = 0; i < L.size() ; i++) {
-                double comp= comparateurNom.comparer1(S.getFirst(),L.get(i) );
-                result.add(new MyTuple(S.getFirst(),L.get(i),comp));
+            for (int i = 0; i < result.size() ; i++) {
+                double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
+                result.get(i).setValue(comp);
             }
+
             Selectionneur Selec = getSelectionneur();
             result=Selec.selectionner(result);
 
             return result ;
         }
-        public List<Nom> Dedupliquer (List<Nom> L1, List<Nom> L2) {
-            List<Nom> result= new ArrayList<>();
+        public List<MyTuple> Dedupliquer (List<Nom> L1, List<Nom> L2) {
+            List<MyTuple> result= new ArrayList<>();
             for( Nom n:L1){
-                List <MyTuple>  rech = rechercher(n,L2);
-                for (MyTuple t : rech) {
-                    if(t.getValue()!=0.0){
-                        result.add(t.getItem1());
-                        break;
-                    }
+                if(!L2.contains(n)){
+                    List<MyTuple> L3= rechercher(n,L2);
+                    result.addAll(L3);
                 }
             }
             return result;
         }
-
     }
