@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
+        Enregistrement E = new Enregistrement();
         List<Pretraiteur> pretraiteurs = new ArrayList<>();
 
         //pretraiteurs.add(new CombinaisonDeSeparation());
@@ -14,7 +14,7 @@ public class Main {
         ComparateurDeDeuxNoms comparateur = new ExactMatch();
         GenerateurDeCondidat generateur = new Generateur1(2);
         Selectionneur selectionneur = new SelectionneurNmeilleur(100);
-        Filtre F =new FiltreParLongeur(10);
+        Filtre F =new FiltreParLongeur(1);
 
         MoteurMatching moteur = new MoteurMatching(null, comparateur, pretraiteurs, generateur, selectionneur,F);
         Nom test = new Nom("Uth2man Hus1000000000000sain Faid al-MUJA@@@@@@LI", "3");
@@ -32,6 +32,10 @@ public class Main {
             System.out.printf("Comparaison: %-20s <->       %-20s              | Score: %.2f%n",
                     t.getItem1(), t.getItem2(), t.getValue());
         }
+        String shemin = "C:\\Users\\wael\\Desktop" ;
+
+        E.enregistrer(resultats,shemin);
+
         System.out.println("\n");
         System.out.println("Résultats du matching pour: " + test.getNom() + " D'identifiant " + test.getId());
         }

@@ -27,6 +27,7 @@ public class Vocalizer implements Pretraiteur {
 
                 }
             }
+            n.setListNomTraitée(L);
 
         }
         return Noms;

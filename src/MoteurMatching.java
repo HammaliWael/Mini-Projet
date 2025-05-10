@@ -79,12 +79,13 @@ public class MoteurMatching {
             List<MyTuple> result = new ArrayList<>();
             List<Nom> S = new ArrayList<>();
             S.add(s);
-            //List<Nom> M= F.Filtrer(L,S.getFirst());
+
             for (Pretraiteur p :pretraiteurs){
                 L=p.pretraiter(L);
                 S=p.pretraiter(S);
             }
-            result= generateur.generer(S,L);
+            List<Nom> M= F.Filtrer(L,S.getFirst());
+            result= generateur.generer(S,M);
             for (int i = 0; i < result.size() ; i++) {
                 double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
                 result.get(i).setValue(comp);
@@ -105,4 +106,22 @@ public class MoteurMatching {
             }
             return result;
         }
+
+        public List<MyTuple> ComparerDeuxListes(List<Nom> L1, List<Nom> L2) {
+            ComparateurDeDeuxNoms C= getComparateurNom();
+            List<MyTuple> result= new ArrayList<>();
+            GenerateurDeCondidat G = getGenerateur();
+            List<Pretraiteur> pretraiteurs = getPreprocesseurs();
+            for (Pretraiteur p :pretraiteurs){
+                L1=p.pretraiter(L1);
+                L2=p.pretraiter(L2);
+            }
+            result=G.generer(L1,L2);
+            for(int i=0;i<result.size();i++){
+                double comp= C.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
+                result.get(i).setValue(comp);
+            }
+            return result;
+        }
+
     }

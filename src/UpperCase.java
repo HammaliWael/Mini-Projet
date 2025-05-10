@@ -7,8 +7,9 @@ public class UpperCase implements Pretraiteur {
         for(Nom n : Noms) {
             List<Nom> L =n.getListNomTraitée();
             for(int i = 0 ; i < L.size() ; i++) {
-                L.get(i).setNom(L.get(i).getNom().toUpperCase());
+                 L.get(i).setNom(L.get(i).getNom().toUpperCase());
             }
+            n.setListNomTraitée(L);
         }
         return Noms;
     }
