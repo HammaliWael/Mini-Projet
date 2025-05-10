@@ -3,13 +3,13 @@ import java.util.Comparator;
 import java.util.ArrayList;
 
 public class SelectionneurParSeuille implements Selectionneur {
-    int seuil;
+    double seuil;
 
-    public SelectionneurParSeuille(int seuil){
+    public SelectionneurParSeuille(Double seuil){
         this.seuil = seuil;
     }
 
-    public int getSeuil(){ return seuil; }
+    public Double getSeuil(){ return seuil; }
 
     public void setSeuil(int seuil) {
         this.seuil = seuil;

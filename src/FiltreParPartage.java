@@ -24,7 +24,7 @@ public class FiltreParPartage implements Filtre {
         for(Nom n : noms) {
             Set<String> S2 = new HashSet<>(S);
             S2.retainAll(Diviseur(n.getNom(), getN()));
-            if (!S2.isEmpty()) {
+            if (S2.size() == N) {
                 result.add(n);
             }
         }

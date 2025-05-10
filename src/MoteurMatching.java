@@ -48,6 +48,9 @@ public class MoteurMatching {
             return filtres;
         }
 
+
+
+
     public void setFiltre(List<Filtre> filtres) {
         this.filtres = filtres;
     }
@@ -87,11 +90,11 @@ public class MoteurMatching {
             }
 
 
-            List<Nom> M= F.getFirst().Filtrer(L,S.getFirst());
+            for (Filtre f : F) {
+                L= f.Filtrer(L,S.getFirst());
+            }
 
-            M = F.getLast().Filtrer(L,S.getFirst());
-
-            result= generateur.generer(S,M);
+            result= generateur.generer(S,L);
 
             for (int i = 0; i < result.size() ; i++) {
                 double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
@@ -100,9 +103,10 @@ public class MoteurMatching {
 
             Selectionneur Selec = getSelectionneur();
             result=Selec.selectionner(result);
-
             return result ;
         }
+
+
         public List<MyTuple> Dedupliquer (List<Nom> L1, List<Nom> L2) {
 
             List<MyTuple> result= new ArrayList<>();
@@ -120,6 +124,13 @@ public class MoteurMatching {
             List<MyTuple> result= new ArrayList<>();
             GenerateurDeCondidat G = getGenerateur();
             List<Pretraiteur> pretraiteurs = getPreprocesseurs();
+            List<Filtre> filtre = getFiltre();
+
+
+            for( Nom n:L1){
+                filtre.getFirst().Filtrer(L2,n);
+                filtre.getLast().Filtrer(L2,n);
+            }
             for (Pretraiteur p :pretraiteurs){
                 L1=p.pretraiter(L1);
                 L2=p.pretraiter(L2);
