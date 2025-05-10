@@ -26,6 +26,8 @@ public class Generateur1 implements GenerateurDeCondidat {
             int len = n.getNom().length();
             map.computeIfAbsent(len, k -> new ArrayList<>()).add(n);
         }
+
+
         List<MyTuple> result = new ArrayList<>();
         for (Nom n1 : L1) {
             int len = n1.getNom().length();

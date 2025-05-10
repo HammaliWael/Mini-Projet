@@ -1,30 +1,31 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CombinaisonDeSeparation implements Pretraiteur {
 
+    @Override
     public List<Nom> pretraiter(List<Nom> noms) {
-        List<Nom> L2 = new ArrayList<>();
-        for (Nom n : noms) {
-            Set<String> result = new HashSet<>();
-            String[] parts = n.getNom().trim().split("[\\s\\-_]+");
-            for (int r = 1; r <= parts.length; r++) {
-                permute(parts, new boolean[parts.length], new ArrayList<>(), r, result);
-            }
+        List<Nom> result = new ArrayList<>();
+        Set<String> seen = new HashSet<>();  // Avoid duplicate combinations
 
-            for (String combination : result) {
-                L2.add(new Nom(combination, n.getId()));
+        for (Nom n : noms) {
+            String[] parts = n.getNom().trim().split("[\\s\\-_]+");
+
+            // Limit permutation depth to avoid memory issues
+            for (int r = 1; r <= Math.min(parts.length, 3); r++) {
+                permute(parts, new boolean[parts.length], new ArrayList<>(), r, result, seen, n.getId());
             }
         }
 
-        return L2;
+        return result;
     }
 
-    private static void permute(String[] parts, boolean[] used, List<String> current, int r, Set<String> result) {
+    private static void permute(String[] parts, boolean[] used, List<String> current, int r,
+                                List<Nom> result, Set<String> seen, String id) {
         if (current.size() == r) {
-            result.add(String.join("", current));
+            String combined = String.join("", current);
+            if (seen.add(combined)) {
+                result.add(new Nom(combined, id));
+            }
             return;
         }
 
@@ -32,13 +33,10 @@ public class CombinaisonDeSeparation implements Pretraiteur {
             if (!used[i]) {
                 used[i] = true;
                 current.add(parts[i]);
-                permute(parts, used, current, r, result);
+                permute(parts, used, current, r, result, seen, id);
                 current.remove(current.size() - 1);
                 used[i] = false;
             }
         }
     }
 }
-
-
-
