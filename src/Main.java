@@ -30,7 +30,7 @@ public class Main {
 
         List<List<Nom>> bases = new ArrayList<>();
         for (String fichier : fichiers) {
-            bases.add(new LocalCSVDataImporter(fichier).importData());
+            bases.add(new RecuperateurCSV(fichier).importData());
         }
 
         boolean continuer = true;

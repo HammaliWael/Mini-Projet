@@ -1,4 +1,3 @@
-import javax.lang.model.element.Name;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class LocalCSVDataImporter implements DataImport {
+public class RecuperateurCSV implements Recuperateur {
     private String filePath;
 
 
-    public LocalCSVDataImporter(String filePath){
+    public RecuperateurCSV(String filePath){
         this.filePath = filePath;
     }
 

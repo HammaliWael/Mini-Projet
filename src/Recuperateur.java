@@ -1,6 +1,6 @@
 import java.util.List;
 
-public interface DataImport {
+public interface Recuperateur {
     List<Nom> importData();
 }
 

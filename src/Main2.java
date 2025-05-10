@@ -10,11 +10,11 @@ public class Main2 {
         List<Nom> base2 = new ArrayList<>();
 
         String filePath1 = "C:\\Users\\wael\\Downloads\\peps_names_1k.csv";
-        LocalCSVDataImporter Local1 = new LocalCSVDataImporter (filePath1);
+        RecuperateurCSV Local1 = new RecuperateurCSV(filePath1);
         base1 = Local1.importData();
 
         String filePath2 = "C:\\Users\\wael\\Downloads\\peps_names_128k.csv";
-        LocalCSVDataImporter Local2 = new LocalCSVDataImporter (filePath2);
+        RecuperateurCSV Local2 = new RecuperateurCSV(filePath2);
         base2 = Local2.importData();
 
         GenerateurDeCondidat G = new Generateur1(3);
