@@ -1,10 +1,9 @@
 import java.util.List;
-import java.util.ArrayList;
 
 public class Vocalizer implements Pretraiteur {
     public List<Nom> pretraiter(List<Nom> Noms) {
         for (Nom n : Noms) {
-            List<Nom> L = n.getListNomTraitée();
+            List<Nom> L = n.getListNomTraitees();
             for (int i = 0; i < L.size(); i++) {
                 if (L.get(i).getNom().contains("oui")) {
                     L.get(i).getNom().replace("oui", "wi");
@@ -27,7 +26,7 @@ public class Vocalizer implements Pretraiteur {
 
                 }
             }
-            n.setListNomTraitée(L);
+            n.setListNomTraitees(L);
 
         }
         return Noms;

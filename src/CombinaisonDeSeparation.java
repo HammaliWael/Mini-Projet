@@ -9,8 +9,6 @@ public class CombinaisonDeSeparation implements Pretraiteur {
 
         for (Nom n : noms) {
             String[] parts = n.getNom().trim().split("[\\s\\-_]+");
-
-            // Limit permutation depth to avoid memory issues
             for (int r = 1; r <= Math.min(parts.length, 3); r++) {
                 permute(parts, new boolean[parts.length], new ArrayList<>(), r, result, seen, n.getId());
             }

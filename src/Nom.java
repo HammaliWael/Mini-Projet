@@ -3,14 +3,14 @@ import java.util.List;
 
 public class Nom {
     private String nom;
-    private List<Nom> listNomTraitée;
+    private List<Nom> ListNomTraitees;
     private final String id;
 
     public Nom(String nom, String id) {
         this.nom = nom;
         this.id = id;
-        this.listNomTraitée = new ArrayList<>();
-        this.listNomTraitée.add(this);
+        this.ListNomTraitees = new ArrayList<>();
+        this.ListNomTraitees.add(this);
 
     }
     public String getId() {
@@ -25,12 +25,12 @@ public class Nom {
         this.nom = nom;
     }
 
-    public List<Nom> getListNomTraitée() {
-        return listNomTraitée;
+    public List<Nom> getListNomTraitees() {
+        return ListNomTraitees;
     }
 
-    public void setListNomTraitée(List<Nom> listNomTraitée) {
-        this.listNomTraitée = listNomTraitée;
+    public void setListNomTraitees(List<Nom> listNomTraitees) {
+        this.ListNomTraitees = listNomTraitees;
     }
 
     public String toString() {

@@ -82,20 +82,22 @@ public class MoteurMatching {
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
             List<MyTuple> result = new ArrayList<>();
             List<Nom> S = new ArrayList<>();
+            List<Nom> L0 = new ArrayList<>();
             S.add(s);
 
             for (Pretraiteur p :pretraiteurs){
                 L=p.pretraiter(L);
                 S=p.pretraiter(S);
             }
-
-
             for (Filtre f : F) {
                 L= f.Filtrer(L,S.getFirst());
             }
 
-            result= generateur.generer(S,L);
-
+            for (Nom n : L) {
+                L0.add(n);
+                L0.addAll(n.getListNomTraitees());
+            }
+            result= generateur.generer(S,L0);
             for (int i = 0; i < result.size() ; i++) {
                 double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
                 result.get(i).setValue(comp);
@@ -131,6 +133,7 @@ public class MoteurMatching {
                 filtre.getFirst().Filtrer(L2,n);
                 filtre.getLast().Filtrer(L2,n);
             }
+
             for (Pretraiteur p :pretraiteurs){
                 L1=p.pretraiter(L1);
                 L2=p.pretraiter(L2);
