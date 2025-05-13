@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,8 +38,13 @@ public class Main {
                     System.out.print("Entrez le nom à rechercher : ");
                     String nomRecherche = scanner.nextLine();
                     Nom nomTest = new Nom(nomRecherche, "test");
+                    long startTime = System.nanoTime();
                     List<MyTuple> res = moteur.rechercher(nomTest, base);
+                    long endTime = System.nanoTime();
+                    long duration = endTime - startTime;
                     afficheur.afficherEtEnregistrer(res, "fichier.txt");
+                    System.out.printf("\nTemps d'exécution de la recherche: %,d ns (%,d ms)\n",
+                            duration, TimeUnit.NANOSECONDS.toMillis(duration));
                 }
 
                 case 2 -> {
@@ -48,16 +54,26 @@ public class Main {
                     String path2 = scanner.nextLine().replace("\"", "").trim();
                     List<Nom> base1 = new RecuperateurCSV(path1).importData();
                     List<Nom> base2 = new RecuperateurCSV(path2).importData();
+                    long startTime = System.nanoTime();
                     List<MyTuple> res = moteur.ComparerDeuxListes(base1, base2);
+                    long endTime = System.nanoTime();
+                    long duration = endTime - startTime;
                     afficheur.afficherEtEnregistrer(res, "fichier.txt");
+                    System.out.printf("\nTemps d'exécution de la comparaison: %,d ns (%,d ms)\n",
+                            duration, TimeUnit.NANOSECONDS.toMillis(duration));
                 }
 
                 case 3 -> {
                     System.out.print("Entrez le chemin du fichier à dédupliquer : ");
                     String path = scanner.nextLine().replace("\"", "").trim();
                     List<Nom> liste = new RecuperateurCSV(path).importData();
+                    long startTime = System.nanoTime();
                     List<MyTuple> res = moteur.dedupliquer(liste);
+                    long endTime = System.nanoTime();
+                    long duration = endTime - startTime;
                     afficheur.afficherEtEnregistrer(res, "fichier.txt");
+                    System.out.printf("\nTemps d'exécution de la déduplication: %,d ns (%,d ms)\n",
+                            duration, TimeUnit.NANOSECONDS.toMillis(duration));
                 }
 
                 case 4 -> {
