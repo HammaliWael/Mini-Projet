@@ -28,7 +28,14 @@ public class MyTuple {
     }
 
     public String toString() {
+
         return "(" + item1.getNom() + ", ID: " + item1.getId() + ", Score: " + value + ")";
+    }
+
+
+    public String toResultString() {
+
+        return item2.getNom() + " (ID: " + item2.getId() + ") | Score: " + String.format("%.2f", value);
     }
 }
 

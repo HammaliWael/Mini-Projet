@@ -108,17 +108,17 @@ public class MoteurMatching {
         }
 
 
-        public List<MyTuple> Dedupliquer (List<Nom> L1, List<Nom> L2) {
-
-            List<MyTuple> result= new ArrayList<>();
-            for( Nom n:L1){
-                if(!L2.contains(n)){
-                    List<MyTuple> L3= rechercher(n,L2);
-                    result.addAll(L3);
-                }
+    public List<MyTuple> dedupliquer(List<Nom> noms) {
+        List<MyTuple> result = new ArrayList<>();
+        for (int i = 0; i < noms.size(); i++) {
+            Nom nom1 = noms.get(i);
+            for (int j = i + 1; j < noms.size(); j++) {
+                Nom nom2 = noms.get(j);
+                result.addAll(rechercher(nom1, List.of(nom2)));
             }
-            return result;
         }
+        return result;
+    }
 
         public List<MyTuple> ComparerDeuxListes(List<Nom> L1, List<Nom> L2) {
             ComparateurDeDeuxNoms C= getComparateurNom();

@@ -4,15 +4,15 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        FiltreParLongeur f = new FiltreParLongeur(5);
+        FiltreParLongeur f = new FiltreParLongeur(3);
         List<Filtre> filtres = new ArrayList<>();
         filtres.add(f);
         List<Pretraiteur> pretraiteurs = new ArrayList<>();
         pretraiteurs.add(new DeleteChiffres());
 
-        ComparateurDeDeuxNoms comparateur = new Levenshtein();
-        GenerateurDeCondidat generateur = new Generateur1(2);
-        Selectionneur selectionneur = new SelectionneurParSeuille(0.8);
+        ComparateurDeDeuxNoms comparateur = new ExactMatch();
+        GenerateurDeCondidat generateur = new Generateur1(0);
+        Selectionneur selectionneur = new SelectionneurNmeilleur(50);
         AffichageEtEnregistrement afficheur = new AffichageEtEnregistrement();
 
         boolean running = true;
@@ -56,10 +56,8 @@ public class Main {
                     System.out.print("Entrez le chemin du fichier à dédupliquer : ");
                     String path = scanner.nextLine().replace("\"", "").trim();
                     List<Nom> liste = new RecuperateurCSV(path).importData();
-                    int tailleAvant = liste.size();
-                    Set<Nom> set = new HashSet<>(liste);
-                    int tailleApres = set.size();
-                    System.out.println("Dédoublonnage effectué : " + tailleAvant + " -> " + tailleApres);
+                    List<MyTuple> res = moteur.dedupliquer(liste);
+                    afficheur.afficherEtEnregistrer(res, "fichier.txt");
                 }
 
                 case 4 -> {

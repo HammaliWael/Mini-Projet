@@ -14,8 +14,9 @@ public class AffichageEtEnregistrement {
         }
 
         for (MyTuple t : resultats) {
-            String ligne = String.format("Résultat: %-20s <-> %-20s | Score: %.2f",
-                    t.getItem1(), t.getItem2(), t.getValue());
+            // Modified line - only shows item2 (matched result) and score
+            String ligne = String.format("Résultat: %-20s | Score: %.2f",
+                    t.getItem2(), t.getValue());
             System.out.println(ligne);
         }
 
