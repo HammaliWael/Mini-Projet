@@ -1,5 +1,8 @@
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MoteurMatching {
 
@@ -78,11 +81,11 @@ public class MoteurMatching {
 
             List <Filtre> F = getFiltre();
             List<Pretraiteur> pretraiteurs = getPreprocesseurs();
+
             GenerateurDeCondidat generateur = getGenerateur();
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
             List<MyTuple> result = new ArrayList<>();
             List<Nom> S = new ArrayList<>();
-            List<Nom> L0 = new ArrayList<>();
             S.add(s);
 
             for (Pretraiteur p :pretraiteurs){
@@ -93,11 +96,8 @@ public class MoteurMatching {
                 L= f.Filtrer(L,S.getFirst());
             }
 
-            for (Nom n : L) {
-                L0.add(n);
-                L0.addAll(n.getListNomTraitees());
-            }
-            result= generateur.generer(S,L0);
+            result= generateur.generer(S,L);
+
             for (int i = 0; i < result.size() ; i++) {
                 double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
                 result.get(i).setValue(comp);
@@ -126,19 +126,15 @@ public class MoteurMatching {
             List<MyTuple> result= new ArrayList<>();
             GenerateurDeCondidat G = getGenerateur();
             List<Pretraiteur> pretraiteurs = getPreprocesseurs();
-            List<Filtre> filtre = getFiltre();
-
+            List<Filtre> filtres = getFiltre();
 
             for( Nom n:L1){
-                filtre.getFirst().Filtrer(L2,n);
-                filtre.getLast().Filtrer(L2,n);
+                for (Pretraiteur p :pretraiteurs){
+                    L1=p.pretraiter(L1);
+                    L2=p.pretraiter(L2);
+                }
             }
-
-            for (Pretraiteur p :pretraiteurs){
-                L1=p.pretraiter(L1);
-                L2=p.pretraiter(L2);
-            }
-            result=G.generer(L1,L2);
+            result= G.generer(L1,L2);
             for(int i=0;i<result.size();i++){
                 double comp= C.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
                 result.get(i).setValue(comp);

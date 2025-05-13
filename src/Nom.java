@@ -37,4 +37,3 @@ public class Nom {
         return nom + " (ID: " + id + ")";
     }
 }
-

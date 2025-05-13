@@ -7,7 +7,7 @@ public class LowerCase implements Pretraiteur {
             for(int i = 0 ; i < L.size() ; i++) {
                 L.get(i).setNom(L.get(i).getNom().toLowerCase());
             }
-        n.setListNomTraitees(L);
+            n.setListNomTraitees(L);
         }
         return Noms;
     }

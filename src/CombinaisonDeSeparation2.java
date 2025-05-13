@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class CombinaisonDeSeparation implements Pretraiteur {
+public class CombinaisonDeSeparation2 implements Pretraiteur {
 
     @Override
     public List<Nom> pretraiter(List<Nom> noms) {

@@ -39,7 +39,7 @@ public class Generateur1 implements GenerateurDeCondidat {
                 for (Nom n2 : map.get(len+x)) {
                     result.add(new MyTuple(n1,n2,0.0));
                 }
-             }
+            }
             if (map.containsKey(len-x)) {
                 for (Nom n2 : map.get(len-x)) {
                     result.add(new MyTuple(n1,n2,0.0));
@@ -50,4 +50,3 @@ public class Generateur1 implements GenerateurDeCondidat {
         return result;
     }
 }
-
