@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,6 +13,7 @@ public class Main {
         ComparateurDeDeuxNoms comparateur = new Levenshtein();
         GenerateurDeCondidat generateur = new Generateur1(2);
         Selectionneur selectionneur = new SelectionneurParSeuille(0.8);
+        AffichageEtEnregistrement afficheur = new AffichageEtEnregistrement();
 
         boolean running = true;
         while (running) {
@@ -36,12 +38,7 @@ public class Main {
                     String nomRecherche = scanner.nextLine();
                     Nom nomTest = new Nom(nomRecherche, "test");
                     List<MyTuple> res = moteur.rechercher(nomTest, base);
-                    if (res.isEmpty()) {
-                        System.out.println("Aucun résultat trouvé.");
-                    } else {
-                        res.forEach(t -> System.out.printf("Résultat: %-20s <-> %-20s | Score: %.2f%n",
-                                t.getItem1(), t.getItem2(), t.getValue()));
-                    }
+                    afficheur.afficherEtEnregistrer(res, "fichier.txt");
                 }
 
                 case 2 -> {
@@ -52,12 +49,7 @@ public class Main {
                     List<Nom> base1 = new RecuperateurCSV(path1).importData();
                     List<Nom> base2 = new RecuperateurCSV(path2).importData();
                     List<MyTuple> res = moteur.ComparerDeuxListes(base1, base2);
-                    if (res.isEmpty()) {
-                        System.out.println("Aucun résultat trouvé.");
-                    } else {
-                        res.forEach(t -> System.out.printf("Comparaison: %-20s <-> %-20s | Score: %.2f%n",
-                                t.getItem1(), t.getItem2(), t.getValue()));
-                    }
+                    afficheur.afficherEtEnregistrer(res, "fichier.txt");
                 }
 
                 case 3 -> {
@@ -78,7 +70,8 @@ public class Main {
                         System.out.println("2. Choisir une structure d'index (mode générateur)");
                         System.out.println("3. Choisir une mesure de comparaison");
                         System.out.println("4. Définir le seuil ou nombre de résultats");
-                        System.out.println("5. Retour");
+                        System.out.println("5. Choisir un filtre");
+                        System.out.println("6. Retour");
                         System.out.print("Choix : ");
                         int config = scanner.nextInt();
                         scanner.nextLine();
@@ -89,7 +82,7 @@ public class Main {
                                 boolean ajout = true;
                                 while (ajout) {
                                     System.out.println("Ajouter un prétraitement :");
-                                    System.out.println("1. DeleteChiffres\n2. DeleteCaracteresSpeciaux\n3. UpperCase\n4. LowerCase\n5. CombinaisonDeSeparation\n6. Vocalizer");
+                                    System.out.println("1. DeleteChiffres\n2. DeleteCaracteresSpeciaux\n3. UpperCase\n4. LowerCase\n5. CombinaisonDeSeparation1\n6. CombinaisonDeSeparation2\n7. Vocalizer");
                                     int choixPt = scanner.nextInt();
                                     scanner.nextLine();
                                     switch (choixPt) {
@@ -148,7 +141,24 @@ public class Main {
                                 }
                             }
 
-                            case 5 -> configurer = false;
+                            case 5 -> {
+                                filtres.clear();
+                                System.out.println("1. Filtre par longeur\n2. Filtre par partage");
+                                int type = scanner.nextInt();
+                                if (type == 1) {
+                                    System.out.print("Entrez la longueur minimale : ");
+                                    int n = scanner.nextInt();
+                                    filtres.add(new FiltreParLongeur(n));
+                                } else if (type == 2) {
+                                    System.out.print("Entrez le minimum de partage : ");
+                                    int s = scanner.nextInt();
+                                    filtres.add(new FiltreParPartage(s));
+                                } else {
+                                    System.out.println("Choix invalide.");
+                                }
+                            }
+
+                            case 6 -> configurer = false;
 
                             default -> System.out.println("Choix invalide.");
                         }

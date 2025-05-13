@@ -78,23 +78,24 @@ public class MoteurMatching {
     }
 
     public List<MyTuple> rechercher(Nom s , List<Nom> L) {
-
+            Selectionneur Selec = getSelectionneur();
             List <Filtre> F = getFiltre();
             List<Pretraiteur> pretraiteurs = getPreprocesseurs();
-
             GenerateurDeCondidat generateur = getGenerateur();
             ComparateurDeDeuxNoms comparateurNom = getComparateurNom();
             List<MyTuple> result = new ArrayList<>();
             List<Nom> S = new ArrayList<>();
             S.add(s);
 
+            for (Filtre f : F) {
+                L= f.Filtrer(L,S.getFirst());
+            }
+
             for (Pretraiteur p :pretraiteurs){
                 L=p.pretraiter(L);
                 S=p.pretraiter(S);
             }
-            for (Filtre f : F) {
-                L= f.Filtrer(L,S.getFirst());
-            }
+
 
             result= generateur.generer(S,L);
 
@@ -102,8 +103,6 @@ public class MoteurMatching {
                 double comp= comparateurNom.comparer1(result.get(i).getItem1(),result.get(i).getItem2() );
                 result.get(i).setValue(comp);
             }
-
-            Selectionneur Selec = getSelectionneur();
             result=Selec.selectionner(result);
             return result ;
         }
