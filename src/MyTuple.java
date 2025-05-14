@@ -1,41 +1,41 @@
+import java.util.Objects;
+
 public class MyTuple {
-        Nom item1;
-        Nom item2;
-        double value;
+    private Nom item1;
+    private Nom item2;
+    private double value;
 
-        public MyTuple(Nom item1,Nom item2, double value) {
-            this.item1 = item1;
-            this.item2=item2;
-            this.value = value;
-
-        }
-        public Nom getItem1() {
-            return item1;
-        }
-        public Nom getItem2() {
-            return item2;
-        }
-        public double getValue() {
-            return value;
+    public MyTuple(Nom item1, Nom item2, double value) {
+        this.item1 = item1;
+        this.item2 = item2;
+        this.value = value;
     }
 
-        public void setItem2(Nom item2) {
-            this.item2 = item2;
-        }
+    public Nom getItem1() {
+        return item1;
+    }
+
+    public Nom getItem2() {
+        return item2;
+    }
+
+    public double getValue() {
+        return value;
+    }
 
     public void setValue(double value) {
         this.value = value;
     }
-
-    public String toString() {
-
-        return "(" + item1.getNom() + ", ID: " + item1.getId() + ", Score: " + value + ")";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyTuple)) return false;
+        MyTuple other = (MyTuple) o;
+        return Objects.equals(item1.getId(), other.item1.getId()) &&
+                Objects.equals(item2.getId(), other.item2.getId());
     }
 
-
-    public String toResultString() {
-
-        return item2.getNom() + " (ID: " + item2.getId() + ") | Score: " + String.format("%.2f", value);
+    @Override
+    public int hashCode() {
+        return Objects.hash(item1.getId(), item2.getId());
     }
 }
-

@@ -1,19 +1,29 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
 
-public record Enregistrement() {
+public class Enregistrement {
 
-    public void enregistrer(List<MyTuple> donnees, String cheminFichier) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminFichier, true))) {
-            for (MyTuple nv : donnees) {
-                writer.write(String.format("Résultat: %-20s <-> %-20s | Score: %.2f",
-                        nv.getItem1(), nv.getItem2(), nv.getValue()));
-                writer.newLine();
-            }
-        } catch (IOException e) {
+    private PrintStream printStream;
+
+
+    public Enregistrement(String fileName) {
+        try {
+
+            this.printStream = new PrintStream(new File(fileName));
+        } catch (FileNotFoundException e) {
+            System.out.println("Erreur : Impossible d'écrire dans le fichier.");
             e.printStackTrace();
+        }
+    }
+
+
+    public void enregistrer(String output) {
+        printStream.println(output);
+    }
+
+
+    public void close() {
+        if (printStream != null) {
+            printStream.close();
         }
     }
 }

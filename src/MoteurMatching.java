@@ -109,16 +109,73 @@ public class MoteurMatching {
 
 
     public List<MyTuple> dedupliquer(List<Nom> noms) {
-        List<MyTuple> result = new ArrayList<>();
+            Set<MyTuple> resultSet = new HashSet<>();
+            int n = noms.size();
+            Selectionneur Selec = getSelectionneur();
+
+            for (int i = 0; i < n; i++) {
+                Nom nom1 = noms.get(i);
+                List<Nom> rest = new ArrayList<>();
+                for (int j = i + 1; j < n; j++) {
+                    Nom nom2 = noms.get(j);
+                    if (!nom1.getId().equals(nom2.getId()) || !nom1.getNom().equals(nom2.getNom())) {
+                        rest.add(nom2);
+                    }
+                }
+
+                if (!rest.isEmpty()) {
+                    resultSet.addAll(rechercher(nom1, rest));
+                }
+            }
+
+            List<MyTuple> deduped = new ArrayList<>(resultSet);
+            return Selec.selectionner(deduped);
+        }
+
+
+
+            /*List<MyTuple> result = new ArrayList<>();
+        int n = noms.size();
+        Selectionneur Selec = getSelectionneur();
+        List<Pretraiteur> pretraiteurs = getPreprocesseurs();
+
+
+
+        for (int i = 0; i < n; i++) {
+            Nom nom1 = noms.get(i);
+            List<Nom> rest = new ArrayList<>();
+            for (int j = i + 1; j < n; j++) {
+                Nom nom2 = noms.get(j);
+                if (!nom1.getId().equals(nom2.getId()) || !nom1.getNom().equals(nom2.getNom())) {
+                    rest.add(nom2);
+                }
+            }
+
+            if (!rest.isEmpty()) {
+                result.addAll(rechercher(nom1, rest));
+            }
+        }
+        result=Selec.selectionner(result);
+
+
+        return result;
+    }*/
+
+
+
+            /*List<MyTuple> result = new ArrayList<>();
         for (int i = 0; i < noms.size(); i++) {
             Nom nom1 = noms.get(i);
             for (int j = i + 1; j < noms.size(); j++) {
                 Nom nom2 = noms.get(j);
-                result.addAll(rechercher(nom1, List.of(nom2)));
+                if (!nom1.getId().equals(nom2.getId())&& !nom1.getNom().equals(nom2.getNom())) {
+                    List<Nom> L = noms.subList(j,noms.size());
+                    result.addAll(rechercher(nom1,L));
+                }
             }
         }
         return result;
-    }
+    }*/
 
         public List<MyTuple> ComparerDeuxListes(List<Nom> L1, List<Nom> L2) {
             ComparateurDeDeuxNoms C= getComparateurNom();

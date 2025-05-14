@@ -5,6 +5,11 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Initialisation avec enregistrement
+        String fileName = "output.txt";
+        AffichageEtEnregistrement afficheur = new AffichageEtEnregistrement(fileName);
+
         FiltreParLongeur f = new FiltreParLongeur(3);
         List<Filtre> filtres = new ArrayList<>();
         filtres.add(f);
@@ -14,7 +19,6 @@ public class Main {
         ComparateurDeDeuxNoms comparateur = new ExactMatch();
         GenerateurDeCondidat generateur = new Generateur1(0);
         Selectionneur selectionneur = new SelectionneurNmeilleur(50);
-        AffichageEtEnregistrement afficheur = new AffichageEtEnregistrement();
 
         boolean running = true;
         while (running) {
@@ -42,9 +46,13 @@ public class Main {
                     List<MyTuple> res = moteur.rechercher(nomTest, base);
                     long endTime = System.nanoTime();
                     long duration = endTime - startTime;
-                    afficheur.afficherEtEnregistrer(res, "fichier.txt");
-                    System.out.printf("\nTemps d'exécution de la recherche: %,d ns (%,d ms)\n",
-                            duration, TimeUnit.NANOSECONDS.toMillis(duration));
+
+                    afficheur.afficherEtEnregistrer("Résultats de la recherche :");
+                    for (MyTuple tuple : res) {
+                        afficheur.afficherEtEnregistrer("Nom2: " + tuple.getItem2() + ", Valeur: " + tuple.getValue());
+                    }
+                    afficheur.afficherEtEnregistrer(String.format("\nTemps d'exécution de la recherche: %,d ns (%,d ms)\n",
+                            duration, TimeUnit.NANOSECONDS.toMillis(duration)));
                 }
 
                 case 2 -> {
@@ -58,9 +66,12 @@ public class Main {
                     List<MyTuple> res = moteur.ComparerDeuxListes(base1, base2);
                     long endTime = System.nanoTime();
                     long duration = endTime - startTime;
-                    afficheur.afficherEtEnregistrer(res, "fichier.txt");
-                    System.out.printf("\nTemps d'exécution de la comparaison: %,d ns (%,d ms)\n",
-                            duration, TimeUnit.NANOSECONDS.toMillis(duration));
+
+                    for (MyTuple tuple : res) {
+                        afficheur.afficherEtEnregistrer("Nom1: " + tuple.getItem1() + " ----> Nom2: " + tuple.getItem2() + ", Valeur: " + tuple.getValue());
+                    }
+                    afficheur.afficherEtEnregistrer(String.format("\nTemps d'exécution de la comparaisonDeDeuxListes: %,d ns (%,d ms)\n",
+                            duration, TimeUnit.NANOSECONDS.toMillis(duration)));
                 }
 
                 case 3 -> {
@@ -71,9 +82,12 @@ public class Main {
                     List<MyTuple> res = moteur.dedupliquer(liste);
                     long endTime = System.nanoTime();
                     long duration = endTime - startTime;
-                    afficheur.afficherEtEnregistrer(res, "fichier.txt");
-                    System.out.printf("\nTemps d'exécution de la déduplication: %,d ns (%,d ms)\n",
-                            duration, TimeUnit.NANOSECONDS.toMillis(duration));
+
+                    for (MyTuple tuple : res) {
+                        afficheur.afficherEtEnregistrer("Nom1: " + tuple.getItem1() + " ----> Nom2: " + tuple.getItem2() + ", Valeur: " + tuple.getValue());
+                    }
+                    afficheur.afficherEtEnregistrer(String.format("\nTemps d'exécution de la déduplication: %,d ns (%,d ms)\n",
+                            duration, TimeUnit.NANOSECONDS.toMillis(duration)));
                 }
 
                 case 4 -> {
@@ -182,6 +196,8 @@ public class Main {
                 case 5 -> {
                     running = false;
                     System.out.println("Fin du programme.");
+                    afficheur.afficherEtEnregistrer("Fin du programme.");
+                    afficheur.close();
                 }
 
                 default -> System.out.println("Choix invalide.");

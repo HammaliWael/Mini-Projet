@@ -1,25 +1,29 @@
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class AffichageEtEnregistrement {
-    private final Enregistrement enregistrement;
+    private PrintWriter writer;
 
-    public AffichageEtEnregistrement() {
-        this.enregistrement = new Enregistrement();
+    public AffichageEtEnregistrement(String filename) {
+        try {
+            writer = new PrintWriter(new FileWriter(filename, true)); // append mode
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'ouverture du fichier : " + e.getMessage());
+        }
     }
 
-    public void afficherEtEnregistrer(List<MyTuple> resultats, String fichier) {
-        if (resultats == null || resultats.isEmpty()) {
-            System.out.println("Aucun résultat trouvé.");
-            return;
+    public void afficherEtEnregistrer(String message) {
+        System.out.println(message);
+        if (writer != null) {
+            writer.println(message);
         }
+    }
 
-        for (MyTuple t : resultats) {
-            // Modified line - only shows item2 (matched result) and score
-            String ligne = String.format("Résultat: %-20s | Score: %.2f",
-                    t.getItem2(), t.getValue());
-            System.out.println(ligne);
+    public void close() {
+        if (writer != null) {
+            writer.close();
         }
-
-        enregistrement.enregistrer(resultats, fichier);
     }
 }
