@@ -5,8 +5,6 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Initialisation avec enregistrement
         String fileName = "output.txt";
         AffichageEtEnregistrement afficheur = new AffichageEtEnregistrement(fileName);
 
