@@ -131,38 +131,6 @@ public class MoteurMatching {
             List<MyTuple> deduped = new ArrayList<>(resultSet);
             return Selec.selectionner(deduped);
         }
-
-
-
-            /*List<MyTuple> result = new ArrayList<>();
-        int n = noms.size();
-        Selectionneur Selec = getSelectionneur();
-        List<Pretraiteur> pretraiteurs = getPreprocesseurs();
-
-
-
-        for (int i = 0; i < n; i++) {
-            Nom nom1 = noms.get(i);
-            List<Nom> rest = new ArrayList<>();
-            for (int j = i + 1; j < n; j++) {
-                Nom nom2 = noms.get(j);
-                if (!nom1.getId().equals(nom2.getId()) || !nom1.getNom().equals(nom2.getNom())) {
-                    rest.add(nom2);
-                }
-            }
-
-            if (!rest.isEmpty()) {
-                result.addAll(rechercher(nom1, rest));
-            }
-        }
-        result=Selec.selectionner(result);
-
-
-        return result;
-    }*/
-
-
-
             /*List<MyTuple> result = new ArrayList<>();
         for (int i = 0; i < noms.size(); i++) {
             Nom nom1 = noms.get(i);
